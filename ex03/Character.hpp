@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AMateria.hpp                                       :+:      :+:    :+:   */
+/*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbarru <kbarru@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 14:52:35 by kbarru            #+#    #+#             */
-/*   Updated: 2025/11/04 11:51:43 by kbarru           ###   ########lyon.fr   */
+/*   Created: 2025/10/28 09:47:44 by kbarru            #+#    #+#             */
+/*   Updated: 2025/11/06 14:31:05 by kbarru           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef AMATERIA_HPP
-# define AMATERIA_HPP
+#ifndef CHARACTER_HPP
+# define CHARACTER_HPP
 
 #include <iostream>
 #include "ICharacter.hpp"
 
-class AMateria
+class Character : public virtual ICharacter
 {
-protected:
-		std::string _type;
-
+private:
+	std::string _name;
+	AMateria* _inventory[4];
 public:
-	AMateria(std::string const & type);
+	Character();
+	Character(std::string name);
+	Character(Character const &other);
+	~Character();
+	Character &operator=(Character const &other);
 
-	virtual ~AMateria();
-	std::string const & getType() const; //Returns the materia type
-	virtual AMateria* clone() const = 0;
-	virtual void use(ICharacter& target);
+	std::string const & getName() const;
+	void equip(AMateria *m);
+	void unequip(int idx);
+	void use(int idx, ICharacter& target);
 };
 
 #endif

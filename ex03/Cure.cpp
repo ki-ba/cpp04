@@ -16,24 +16,12 @@ Cure::Cure() : AMateria("cure")
 {
 }
 
-Cure::Cure(const Cure &other) : AMateria(other._type) // should always be "cure"
+Cure::Cure(const Cure &other) : AMateria(other._type)
 {
 }
 
 Cure::~Cure()
 {
-}
-
-Cure &Cure::operator=(const Cure &other)
-{
-	// TODO: Implement this function.
-	// According to the subject, "copying the type doesn't make sense".
-	// probably because the type is always "cure" for this class.
-	// then a Cure materia should not be assignable to a healing materia or something else.
-	// only another Cure materia could be assigned to this one, but since they are all the same type, then there is nothing to copy.
-	// Then what should = do?
-	(void)other;
-	return (*this);
 }
 
 void Cure::use(ICharacter &target)

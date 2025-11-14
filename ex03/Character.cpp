@@ -11,25 +11,48 @@
 /* ************************************************************************** */
 
 #include "Character.hpp"
-#include "ICharacter.hpp"
 #include "AMateria.hpp"
 
-Character::Character() : ICharacter()
+Character::Character() : ICharacter(), _name("")
 {
 	this->_name = "noname";
+	for (int i = 0; i < 4; ++i)
+		this->_inventory[i] = NULL;
 }
 
-Character::Character(std::string name) : ICharacter()
+Character::Character(std::string name) : _name(name)
 {
-	this->_name = name;
+	for (int i = 0; i < 4; ++i)
+		this->_inventory[i] = NULL;
 }
 
 Character::~Character()
 {
-
+	for (int i = 0; i < 4; ++i)
+		delete this->_inventory[i];
 }
 
-std::string const & Character::getName() const
+Character::Character(Character const &other)
+{
+	*this = other;
+}
+
+Character &Character::operator=(Character const &other)
+{
+	this->_name = other.getName();
+	for (int i = 0; i < 4; ++i)
+	{
+		if (this->_inventory[i])
+			delete this->_inventory[i];
+		if (other._inventory[i])
+			this->_inventory[i] = other._inventory[i]->clone();
+		else
+			this->_inventory[i] = NULL;
+	}
+	return (*this);
+}
+
+std::string const &Character::getName() const
 {
 	return (this->_name);
 }
@@ -46,23 +69,20 @@ void Character::equip(AMateria *m)
 		}
 		++i;
 	}
-	std::cout << "no space left in inventory" << std::endl;
+	if (i == 4)
+		std::cout << "no space left in inventory" << std::endl;
 }
 
 void Character::unequip(int idx)
 {
-	if (idx < 0 || idx > 3)
-		std::cout << "incorrect index" << std::endl;
-	if (!this->_inventory[idx])
-		std::cout << "no materia in this spot" << std::endl;
-	this->_inventory[idx] = NULL; // beware of memory leaks
+	if (idx < 0 || idx > 3 || !this->_inventory[idx])
+		return ;
+	this->_inventory[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter& target)
 {
-	if (idx < 0 || idx > 3)
-		std::cout << "incorrect index" << std::endl;
-	if (!this->_inventory[idx])
-		std::cout << "no materia in this spot" << std::endl;
+	if (idx < 0 || idx > 3 || !this->_inventory[idx])
+		return ;
 	(this->_inventory[idx])->use(target);
 }

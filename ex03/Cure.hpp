@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AMateria.cpp                                       :+:      :+:    :+:   */
+/*   Cure.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kbarru <kbarru@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/27 15:44:53 by kbarru            #+#    #+#             */
-/*   Updated: 2025/11/04 11:58:09 by kbarru           ###   ########lyon.fr   */
+/*   Created: 2025/11/04 10:59:33 by kbarru            #+#    #+#             */
+/*   Updated: 2025/11/04 11:06:13 by kbarru           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "AMateria.hpp"
+#ifndef CURE_HPP
+# define CURE_HPP
 
-AMateria::AMateria(std::string const & type) : _type(type)
+# include "AMateria.hpp"
+class Cure : public virtual AMateria
 {
-	(void)type;
-}
+public:
+	Cure();
+	Cure(Cure const &other);
+	~Cure();
+	void use(ICharacter &target);
+	AMateria* clone() const;
+};
 
-AMateria::~AMateria()
-{
-	(void)this->_type;
-}
-
-std::string const &AMateria::getType() const
-{
-	return (this->_type);
-}
-
-void AMateria::use(ICharacter &target)
-{
-	std::cout << "* uses materia on " << target.getName() << " *" << std::endl;
-}
+#endif

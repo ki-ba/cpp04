@@ -12,27 +12,41 @@
 
 #include "AMateria.hpp"
 #include "Ice.hpp"
-#include "IMateriaSource.hpp"
+#include "Cure.hpp"
+#include "MateriaSource.hpp"
 #include "ICharacter.hpp"
 #include "Character.hpp"
 
+#include <iostream>
 int main()
 {
-	// IMateriaSource* src = new MateriaSource();
-	// src->learnMateria(new Ice());
-	// src->learnMateria(new Cure());
-	ICharacter* me = new Character("me");
-	// AMateria* tmp;
-	Ice ice;
-	// tmp = src->createMateria("ice");
-	me->equip(&ice);
-	// tmp = src->createMateria("cure");
-	// me->equip(tmp);
-	// ICharacter* bob = new Character("bob");
-	// me->use(0, *bob);
-	// me->use(1, *bob);
-	// delete bob;
-	// delete me;
-	// delete src;
+	IMateriaSource* src = new MateriaSource();
+	AMateria *ice = new Ice();
+	AMateria *cure= new Cure();
+	src->learnMateria(ice);
+	src->learnMateria(cure);
+
+	delete ice;
+	delete cure;
+	ICharacter*  me = new Character("me");
+	ICharacter* you = me;
+	AMateria* tmp;
+	tmp = src->createMateria("ice");
+	me->equip(tmp);
+
+	tmp = src->createMateria("cure");
+	me->equip(tmp);
+
+	ICharacter* bob = new Character("bob");
+
+	std::cout << bob->getName() << std::endl;
+	me->use(0, *bob);
+	me->use(1, *bob);
+
+	you->use(1, *me);
+	you->use(2, *me);
+	delete bob;
+	delete me;
+	delete src;
 	return 0;
 }

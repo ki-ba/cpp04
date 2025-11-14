@@ -1,17 +1,14 @@
 NAME = materia
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98 -MMD -g
 
-SRC = main.cpp AMateria.cpp Cure.cpp Ice.cpp
+SRC = main.cpp AMateria.cpp Cure.cpp Ice.cpp Character.cpp MateriaSource.cpp
 INC = ICharacter.hpp AMateria.hpp IMateriaSource.hpp Cure.hpp Ice.hpp
 
-INC_DIR = inc/
 OBJ_DIR = .obj/
-SRC_DIR = src/
-
-INC_P = $(addprefix $(INC_DIR), $(INC))
 
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:%.cpp=%.o))
+DEP = $(OBJ:.o=.d)
 
 .PHONY = all re clean fclean
 
@@ -30,7 +27,9 @@ $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
 
 $(NAME) : $(OBJ)
-	$(CC) $(CFLAGS) -I$(INC_DIR) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-$(OBJ_DIR)%.o : $(SRC_DIR)%.cpp $(INC_P) | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -I$(INC_DIR) -c $< -o $@
+$(OBJ_DIR)%.o : $(SRC_DIR)%.cpp | $(OBJ_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+-include $(DEP)
