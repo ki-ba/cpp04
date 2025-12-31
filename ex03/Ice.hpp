@@ -14,6 +14,10 @@
 
 class Ice : public virtual AMateria
 {
+private:
+	Ice & operator=(const Ice &other);
+	Ice (const std::string &type);
+
 public :
 	Ice();
 	Ice(const Ice &other);

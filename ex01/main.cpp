@@ -12,33 +12,36 @@
 
 #include "Dog.hpp"
 #include "Cat.hpp"
+#include <iostream>
 
-#define PETA_SIZE 10
+#define PETA_SIZE 0
 
 int main(void)
 {
-	Animal *peta[PETA_SIZE];
-	for (int i = 0; i < PETA_SIZE; ++i)
+	if (PETA_SIZE > 0)
 	{
-		if (PETA_SIZE - i > i)
+		Animal *peta[PETA_SIZE];
+		for (int i = 0; i < PETA_SIZE; ++i)
 		{
-			Dog *curr_dog;
-
-			curr_dog = new Dog;
-			peta[i] = curr_dog;
-			curr_dog->makeSound();
+			if (PETA_SIZE - i > i)
+				peta[i] = new Dog();
+			else
+				peta[i] = new Cat();
+			peta[i]->makeSound();
 		}
-		else
-		{
-			Cat *curr_cat;
-
-			curr_cat = new Cat;
-			peta[i] = curr_cat;
-			curr_cat->makeSound();
-		}
+		for (int i = 0; i < PETA_SIZE; ++i)
+			delete peta[i];
 	}
+	else
+		std::cout << "peta is empty. rejoice" << std::endl;
 
-	for (int i = 0; i < PETA_SIZE; ++i)
-		delete peta[i];
+	Dog dog;
+	Dog dog2(dog);
+	dog.think();
+	dog2.think();
+	Cat cat;
+	Cat cat2(cat);
+	cat.think();
+	cat2.think();
 	return (0);
 }

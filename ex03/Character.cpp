@@ -29,7 +29,11 @@ Character::Character(std::string name) : _name(name)
 Character::~Character()
 {
 	for (int i = 0; i < 4; ++i)
-		delete this->_inventory[i];
+		if (this->_inventory[i])
+		{
+			delete this->_inventory[i];
+			this->_inventory[i] = NULL;
+		}
 }
 
 Character::Character(Character const &other)
@@ -39,16 +43,24 @@ Character::Character(Character const &other)
 
 Character &Character::operator=(Character const &other)
 {
+	if (this == &other)
+		return (*this);
 	this->_name = other.getName();
 	for (int i = 0; i < 4; ++i)
 	{
 		if (this->_inventory[i])
+		{
 			delete this->_inventory[i];
-		if (other._inventory[i])
-			this->_inventory[i] = other._inventory[i]->clone();
-		else
 			this->_inventory[i] = NULL;
+		}
 	}
+
+	for (int i = 0; i < 4; ++i)
+	{
+		if (other._inventory[i])
+			this->equip(other._inventory[i]->clone());
+	}
+	
 	return (*this);
 }
 
@@ -59,18 +71,23 @@ std::string const &Character::getName() const
 
 void Character::equip(AMateria *m)
 {
-	int i = 0;
-	while (i < 4)
+	for (int i = 0; i < 4; ++i)
 	{
-		if (!_inventory[i])
+		if (this->_inventory[i] == m)
 		{
-			_inventory[i] = m;
-			break;
+			std::cout << "materia already equipped" << std::endl;
+			return ;
 		}
-		++i;
 	}
-	if (i == 4)
-		std::cout << "no space left in inventory" << std::endl;
+	for (int i = 0; i < 4; ++i)
+	{
+		if (!this->_inventory[i])
+		{
+			this->_inventory[i] = m;
+			return ;
+		}
+	}
+	std::cout << "no space left in inventory" << std::endl;
 }
 
 void Character::unequip(int idx)

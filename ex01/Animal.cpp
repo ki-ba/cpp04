@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "Animal.hpp"
+#include <iostream>
 
 Animal::Animal()
 {
@@ -34,6 +35,10 @@ Animal& Animal::operator=(const Animal& other)
 	return (*this);
 }
 
+void Animal::makeSound(void) const
+{
+	std::cout << "*blob-like sound*" << std::endl;
+}
 std::string Animal::getType() const
 {
 	return (this->type);

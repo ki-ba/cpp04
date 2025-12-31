@@ -17,28 +17,20 @@
 
 int main(void)
 {
-	Animal *peta[PETA_SIZE];
-	for (int i = 0; i < PETA_SIZE; ++i)
+	if (PETA_SIZE > 0)
 	{
-		if (PETA_SIZE - i > i)
+		Animal *peta[PETA_SIZE];
+		for (int i = 0; i < PETA_SIZE; ++i)
 		{
-			Dog *curr_dog;
-
-			curr_dog = new Dog;
-			peta[i] = curr_dog;
-			curr_dog->makeSound();
+			if (PETA_SIZE - i > i)
+				peta[i] = new Dog;
+			else
+				peta[i] = new Cat;
+			peta[i]->makeSound();
 		}
-		else
-		{
-			Cat *curr_cat;
 
-			curr_cat = new Cat;
-			peta[i] = curr_cat;
-			curr_cat->makeSound();
-		}
+		for (int i = 0; i < PETA_SIZE; ++i)
+			delete peta[i];
 	}
-
-	for (int i = 0; i < PETA_SIZE; ++i)
-		delete peta[i];
 	return (0);
 }

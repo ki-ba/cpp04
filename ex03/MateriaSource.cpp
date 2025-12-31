@@ -24,9 +24,6 @@ MateriaSource::~MateriaSource()
 		delete (this->_materias[i]);
 }
 
-/**
-* calls assignment operator for deep copy
-*/
 MateriaSource::MateriaSource(MateriaSource &other)
 {
 	*this = other;
@@ -51,9 +48,7 @@ AMateria *MateriaSource::createMateria(std::string const & type)
 	for (int i = 0; i < 4; ++i)
 	{
 		if (type == this->_materias[i]->getType())
-		{
 			return (this->_materias[i]->clone());
-		}
 	}
 	std::cout << "Materia not created : no such type known" << std::endl;
 	return (NULL);
@@ -61,8 +56,16 @@ AMateria *MateriaSource::createMateria(std::string const & type)
 
 void MateriaSource::learnMateria(AMateria* materia)
 {
-	int i = 0;
-	for (i = 0; i < 4; ++i)
+	for (int i = 0; i < 4; ++i)
+	{
+		if (this->_materias[i] == materia)
+		{
+			std::cout << "Materia not learned : already known" << std::endl;
+			return ;
+		}
+	}
+
+	for (int i = 0; i < 4; ++i)
 	{
 		if (!this->_materias[i])
 		{
@@ -70,6 +73,5 @@ void MateriaSource::learnMateria(AMateria* materia)
 			return ;
 		}
 	}
-	if (i == 4)
-		std::cout << "Materia not learned : no empty spot left" << std::endl;
+	std::cout << "Materia not learned : no empty spot left" << std::endl;
 }

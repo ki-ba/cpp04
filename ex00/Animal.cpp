@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "Animal.hpp"
+# include <iostream>
 
-Animal::Animal()
+Animal::Animal() : type("Blob")
 {
 	
 }
@@ -32,6 +33,11 @@ Animal& Animal::operator=(const Animal& other)
 	if (this != &other)
 		this->type = other.type;
 	return (*this);
+}
+
+void Animal::makeSound() const
+{
+	std::cout << "*blob-like sound*" << std::endl;
 }
 
 std::string Animal::getType() const

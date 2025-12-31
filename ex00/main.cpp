@@ -15,10 +15,26 @@
 
 int main(void)
 {
-	Dog dog;
-	Cat cat;
+	const Animal* meta = new Animal();
+	const Animal* j = new Dog();
+	const Animal* i = new Cat();
 
-	dog.makeSound();
-	cat.makeSound();
+	const Animal* temp;
+
+	i->makeSound(); // will output the cat sound!
+	j->makeSound(); // will output the dog sound!
+	//
+	temp = i;
+	i = j;
+	j = temp;
+
+	i->makeSound(); // will output the dog sound!
+	j->makeSound(); // will output the cat sound!
+	meta->makeSound();
+
+	delete i;
+	delete j;
+	delete meta;
+
 	return (0);
 }

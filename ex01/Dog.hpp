@@ -22,9 +22,9 @@ class Dog : public Animal
 		Dog();
 		Dog(const Dog& other);
 		~Dog();
-		Dog& operator=(const Dog& other);
-
-		void	makeSound();
+		Dog&	operator=(const Dog& other);
+		void	think() const;
+		void	makeSound() const;
 private:
 	Brain *brain;
 };

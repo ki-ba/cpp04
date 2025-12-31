@@ -22,8 +22,9 @@ public:
 	Cat();
 	Cat(const Cat &other);
 	~Cat();
-	Cat &operator=(const Cat &other);
-	void makeSound();
+	Cat& operator=(const Cat &other);
+	void	think() const;
+	void	makeSound() const;
 private:
 	Brain *brain;
 };

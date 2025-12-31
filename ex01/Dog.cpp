@@ -37,7 +37,11 @@ Dog &Dog::operator=(const Dog& other)
 	return (*this);
 }
 
-void	Dog::makeSound()
+void Dog::think() const
+{
+	std::cout << "i think, therefore I am. " << this->brain << std::endl;
+}
+void	Dog::makeSound() const
 {
 	std::cout << "woof" << std::endl;
 }

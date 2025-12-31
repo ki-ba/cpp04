@@ -16,6 +16,9 @@
 # include "AMateria.hpp"
 class Cure : public virtual AMateria
 {
+private:
+	Cure & operator=(const Cure &other);
+	Cure (const std::string &type);
 public:
 	Cure();
 	Cure(Cure const &other);

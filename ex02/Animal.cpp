@@ -20,9 +20,11 @@ Animal::Animal()
 Animal::Animal(std::string animalType) : type(animalType)
 {
 }
+
 Animal::Animal(Animal &other) : type(other.type)
 {
 }
+
 Animal::~Animal()
 {
 }

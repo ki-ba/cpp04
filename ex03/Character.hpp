@@ -13,7 +13,6 @@
 #ifndef CHARACTER_HPP
 # define CHARACTER_HPP
 
-#include <iostream>
 #include "ICharacter.hpp"
 
 class Character : public virtual ICharacter
@@ -26,6 +25,7 @@ public:
 	Character(std::string name);
 	Character(Character const &other);
 	~Character();
+	size_t	getNbEmptySlots() const;
 	Character &operator=(Character const &other);
 
 	std::string const & getName() const;

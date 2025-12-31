@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "AMateria.hpp"
+#include "IMateriaSource.hpp"
 #include "Ice.hpp"
 #include "Cure.hpp"
 #include "MateriaSource.hpp"
@@ -29,24 +30,37 @@ int main()
 	delete ice;
 	delete cure;
 	ICharacter*  me = new Character("me");
-	ICharacter* you = me;
-	AMateria* tmp;
-	tmp = src->createMateria("ice");
+	AMateria* tmp = src->createMateria("ice");
 	me->equip(tmp);
 
 	tmp = src->createMateria("cure");
 	me->equip(tmp);
+	me->equip(tmp); // already known
 
 	ICharacter* bob = new Character("bob");
 
-	std::cout << bob->getName() << std::endl;
 	me->use(0, *bob);
 	me->use(1, *bob);
 
-	you->use(1, *me);
-	you->use(2, *me);
+	AMateria *materia0 = src->createMateria("ice");
+	src->learnMateria(materia0);
+	src->learnMateria(materia0);
+	src->learnMateria(materia0); // should not learn more than 4 materias
+	delete materia0;
+	delete src;
+	
+
+	// test deep copy
+	
+	Character barret("barret");
+	Character yuffie("yuffie");
+	AMateria *heal = new Cure();
+	barret.equip(heal);
+	yuffie = barret; // yuffie cloned barret's Cure
+	barret.unequip(0); // warning : heal is on the ground
+	delete heal;
+
 	delete bob;
 	delete me;
-	delete src;
 	return 0;
 }
