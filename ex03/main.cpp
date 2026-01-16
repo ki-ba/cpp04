@@ -18,7 +18,6 @@
 #include "ICharacter.hpp"
 #include "Character.hpp"
 
-#include <iostream>
 int main()
 {
 	IMateriaSource* src = new MateriaSource();
