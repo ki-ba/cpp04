@@ -15,20 +15,24 @@
 
 Dog::Dog() : Animal("Dog")
 {
+	std:: cout << "[dog] : default constructor called (" << this->type << ")" << std::endl;
 }
 
 Dog::Dog(const Dog &other) : Animal(other.type)
 {
+	std:: cout << "[dog] : copy constructor called (" << this->type << ")" << std::endl;
 }
 
 Dog::~Dog()
 {
+	std:: cout << "[dog] : destructor called (" << this->type << ")" << std::endl;
 }
 
 Dog &Dog::operator=(const Dog& other)
 {
 	if (this == &other)
 		return (*this);
+	std:: cout << "[dog] : assignment operator called (" << other.type << ")" << std::endl;
 	this->type = other.type;
 
 	return (*this);

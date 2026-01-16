@@ -15,21 +15,25 @@
 
 Animal::Animal() : type("Blob")
 {
-	
+	std::cout << "[animal] : default constructor called (" << this->type << ")"<< std::endl;
 }
 
 Animal::Animal(std::string animalType) : type(animalType)
 {
+	std::cout << "[animal] : parameter constructor called (" << this->type << ")" << std::endl;
 }
 Animal::Animal(Animal &other) : type(other.type)
 {
+	std::cout << "[animal] : copy constructor called (" << this->type << ")" << std::endl;
 }
 Animal::~Animal()
 {
+	std::cout << "[animal] : destructor called (" << this->type << ")" << std::endl;
 }
 
 Animal& Animal::operator=(const Animal& other)
 {
+	std::cout << "[animal] : assignment operator called (" << other.type << ")" << std::endl;
 	if (this != &other)
 		this->type = other.type;
 	return (*this);

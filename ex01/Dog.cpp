@@ -15,21 +15,25 @@
 
 Dog::Dog() : Animal("Dog")
 {
+	std::cout << "[dog] default constructor called" << std::endl;
 	this->brain = new Brain;
 }
 
 Dog::Dog(const Dog &other) : Animal(other.type)
 {
+	std::cout << "[dog] copy constructor called" << std::endl;
 	this->brain = new Brain(*(other.brain));
 }
 
 Dog::~Dog()
 {
+	std::cout << "[dog] destructor called" << std::endl;
 	delete this->brain;
 }
 
 Dog &Dog::operator=(const Dog& other)
 {
+	std::cout << "[dog] copy assignment operator called" << std::endl;
 	if (this == &other)
 		return (*this);
 	this->type = other.type;

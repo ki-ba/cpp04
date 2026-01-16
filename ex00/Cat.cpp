@@ -15,20 +15,24 @@
 
 Cat::Cat() : Animal("Cat")
 {
+	std:: cout << "[cat] : default constructor called (" << this->type << ")" << std::endl;
 }
 
 Cat::Cat(const Cat &other) : Animal(other.type)
 {
+	std:: cout << "[cat] : copy constructor called (" << this->type << ")" << std::endl;
 }
 
 Cat::~Cat()
 {
+	std:: cout << "[cat] : destructor called (" << this->type << ")" << std::endl;
 }
 
 Cat &Cat::operator=(const Cat& other)
 {
 	if (this == &other)
 		return (*this);
+	std:: cout << "[cat] : assignment operator called (" << other.type << ")" << std::endl;
 	this->type = other.type;
 
 	return (*this);

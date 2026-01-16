@@ -13,25 +13,29 @@
 #include "Animal.hpp"
 #include <iostream>
 
-Animal::Animal()
+Animal::Animal() : type("Blob")
 {
-	
+	std::cout << "[animal] default constructor called" << std::endl;
 }
 
 Animal::Animal(std::string animalType) : type(animalType)
 {
+	std::cout << "[animal] parameterized constructor called (" << this->type << ")" << std::endl;
 }
 Animal::Animal(Animal &other) : type(other.type)
 {
+	std::cout << "[animal] copy constructor called" << std::endl;
 }
 Animal::~Animal()
 {
+	std::cout << "[animal] destructor called (" << this->type << ")" << std::endl;
 }
 
 Animal& Animal::operator=(const Animal& other)
 {
 	if (this != &other)
 		this->type = other.type;
+	std::cout << "[animal] copy assignment operator called (" << other.type << ")" << std::endl;
 	return (*this);
 }
 
